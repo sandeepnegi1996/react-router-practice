@@ -1,50 +1,24 @@
-import Header from "./component/Header.jsx"
-import  "./index.css"
-import Tasks from "./component/Tasks"
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import About from './Components/About/About'
+import AboutSingle from './Components/About/AboutSingle/AboutSingle'
+import Home from './Components/Home/Home'
+import Main from './Components/Main/Main'
+import Nav from './Components/Nav/Nav'
 
-import { useState } from "react"
-import Employee from "./component/Employee.jsx"
-
-function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "first todo",
-      day: "12th july 2021",
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: "second todo",
-      day: "12th july 2021",
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: "third todo",
-      day: "12th july 2021",
-      reminder: true,
-    },
-  ])
-
-  const deleteTask=(id) => {
-
-    setTasks(tasks.filter((task)=>task.id!==id));
-
-     console.log("Task is deleted ",id)
-  }
-
-  const toggleReminder=(id) => {
-     setTasks( tasks.map( (task) => task.id===id ? {...task,reminder:!task.reminder}: task
-    ))
-  }
-
+const App = () => {
   return (
-    <div>
-      {/* <Header title='Task Tracker' taskNumber='5' />
-      <Tasks tasks={tasks} OnDelete={deleteTask}  OnToggle={toggleReminder} /> */}
-      <Employee/>
-    </div>
+    <Router>
+      <div>
+        <Nav />
+        <Switch>
+          <Route path='/' exact component={Main} />
+          <Route path='/home' component={Home} />
+          <Route path='/about' exact component={About} />
+          <Route path='/about/:id' component={AboutSingle} />
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
